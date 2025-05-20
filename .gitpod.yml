@@ -16,6 +16,7 @@ tasks:
         export DOTNET_ROOT=$HOME/.dotnet
         export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
         dotnet --list-sdks
+        dotnet publish --os linux --arch x64 -c Release -p:ContainerRepository=jyasu/blazor-demo -p:ContainerRegistry=docker.io -p:ContainerImageTags=latest -p:ContainerPort=80
 
 vscode:
     extensions:
