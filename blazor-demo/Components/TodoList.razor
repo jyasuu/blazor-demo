@@ -1,0 +1,67 @@
+@page "/todolist"
+@inject TodoService TodoService
+
+<h3>Todo List</h3>
+
+@if (todos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (todos.Count == 0)
+{
+    <p><em>No todos yet!</em></p>
+}
+else
+{
+    <ul>
+        @foreach (var todo in todos)
+        {
+            <li>
+                <input type="checkbox" checked="@todo.IsDone" @onchange="(() => ToggleTodo(todo))" />
+                @todo.Title
+                <button @onclick="(() => DeleteTodo(todo.Id))">Delete</button>
+            </li>
+        }
+    </ul>
+}
+
+<input type="text" @bind="newTodoTitle" placeholder="Add a new todo" />
+<button @onclick="AddTodo">Add</button>
+
+@code {
+    private List<TodoItem> todos;
+    private string newTodoTitle;
+    private bool firstRender = true;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            todos = await TodoService.GetTodosAsync();
+            StateHasChanged();
+        }
+    }
+
+    private async Task AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodoTitle))
+        {
+            var newTodo = new TodoItem { Title = newTodoTitle };
+            await TodoService.AddTodoAsync(newTodo);
+            newTodoTitle = string.Empty; // Clear the input
+            StateHasChanged();
+        }
+    }
+
+    private async Task ToggleTodo(TodoItem todo)
+    {
+        todo.IsDone = !todo.IsDone;
+        await TodoService.UpdateTodoAsync(todo);
+    }
+
+    private async Task DeleteTodo(Guid id)
+    {
+        await TodoService.DeleteTodoAsync(id);
+        StateHasChanged();
+    }
+}
