@@ -1,4 +1,6 @@
 @page "/todolist"
+@rendermode InteractiveServer
+
 @inject TodoService TodoService
 
 <h3>Todo List</h3>
@@ -37,6 +39,7 @@ else
     {
         if (firstRender)
         {
+            
             todos = await TodoService.GetTodosAsync();
             StateHasChanged();
         }
@@ -44,24 +47,35 @@ else
 
     private async Task AddTodo()
     {
+        Console.WriteLine("AddTodo method called");
         if (!string.IsNullOrWhiteSpace(newTodoTitle))
         {
+            Console.WriteLine($"Adding todo: {newTodoTitle}");
             var newTodo = new TodoItem { Title = newTodoTitle };
             await TodoService.AddTodoAsync(newTodo);
-            newTodoTitle = string.Empty; // Clear the input
+            newTodoTitle = string.Empty;
             StateHasChanged();
+            todos = await TodoService.GetTodosAsync();
+        }
+        else
+        {
+            Console.WriteLine("newTodoTitle is null or whitespace");
         }
     }
 
     private async Task ToggleTodo(TodoItem todo)
     {
+        Console.WriteLine($"Toggling todo: {todo.Title}");
         todo.IsDone = !todo.IsDone;
         await TodoService.UpdateTodoAsync(todo);
+            todos = await TodoService.GetTodosAsync();
     }
 
     private async Task DeleteTodo(Guid id)
     {
+        Console.WriteLine($"Deleting todo with id: {id}");
         await TodoService.DeleteTodoAsync(id);
         StateHasChanged();
+            todos = await TodoService.GetTodosAsync();
     }
 }
