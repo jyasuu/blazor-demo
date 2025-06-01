@@ -1,6 +1,8 @@
 # blazor-demo
 
 
+https://learn.microsoft.com/zh-tw/training/modules/interact-with-data-blazor-web-apps/7-exercise-share-data-in-blazor-applications
+
 ```sh
 dotnet new sln
 dotnet sln add blazor-demo
