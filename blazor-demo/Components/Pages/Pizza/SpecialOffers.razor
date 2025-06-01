@@ -1,0 +1,9 @@
+﻿@page "/pizza/specialoffers"
+@using BlazingPizza
+@using Microsoft.AspNetCore.Components
+
+
+<h1>Special Offers</h1>
+<CascadingValue TValue="String" Name="DealName" Value="@("Throwback Thursday")">
+    <Deal/>
+</CascadingValue>

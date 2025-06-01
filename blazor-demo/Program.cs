@@ -9,13 +9,15 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<TodoService>();
-builder.Services.AddSingleton<PizzaService>();
+builder.Services.AddScoped<PizzaService>();
 builder.Services.AddLogging();
 
 builder.Services.AddBlazoredLocalStorage();
 
 builder.Services.AddHttpClient();
 builder.Services.AddSqlite<PizzaStoreContext>("Data Source=pizza.db");
+
+builder.Services.AddScoped<PizzaSalesState>();
     
 
 var app = builder.Build();
