@@ -8,6 +8,15 @@ tasks:
   - name: dotnet
     env: 
       ASPNETCORE_ENVIRONMENT: Development
+    init: |
+        wget  https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
+        bash dotnet-install.sh 
+        wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
+        bash dotnet-install.sh -c 9.0
+        export DOTNET_ROOT=$HOME/.dotnet
+        export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+        dotnet --list-sdks
+        dotnet watch -p blazor-demo
     command: |
         wget  https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh
         bash dotnet-install.sh 
@@ -16,7 +25,7 @@ tasks:
         export DOTNET_ROOT=$HOME/.dotnet
         export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
         dotnet --list-sdks
-        dotnet publish --os linux --arch x64 -c Release -p:ContainerRepository=jyasu/blazor-demo -p:ContainerRegistry=docker.io -p:ContainerImageTags=latest -p:ContainerPort=80
+        dotnet watch -p blazor-demo
 
 vscode:
     extensions:
