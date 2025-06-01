@@ -12,18 +12,10 @@
 @code {
     private List<Pizza> todaysPizzas;
         
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            
-            todaysPizzas = await PizzaSvc.GetPizzasAsync();
-            StateHasChanged();
-        }
-    }
 
     protected override async Task OnInitializedAsync()
     {
+        todaysPizzas = PizzaSvc.GetPizzas();
     }
 }
 
