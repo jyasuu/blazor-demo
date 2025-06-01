@@ -1,0 +1,60 @@
+﻿@page "/pizza/pizzas"
+@rendermode InteractiveServer
+@using BlazingPizza.Data
+@inject PizzaService PizzaSvc
+
+<style>
+    @@import url('font/quicksand.css');
+</style>
+
+<h3>Pizzas</h3>
+
+@code {
+    private List<Pizza> todaysPizzas;
+        
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            
+            todaysPizzas = await PizzaSvc.GetPizzasAsync();
+            StateHasChanged();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+}
+
+@if (todaysPizzas == null)
+{
+    <p>We're finding out what pizzas are available today...</p>
+}
+else
+{
+
+<table>
+ <thead>
+  <tr>
+   <th>Pizza Name</th>
+   <th>Description</th>
+   <th>Vegetarian?</th>
+   <th>Vegan?</th>
+   <th>Price</th>
+  </tr>
+ </thead>
+ <tbody>
+  @foreach (var pizza in todaysPizzas)
+  {
+   <tr>
+    <td>@pizza.Name</td>
+    <td>@pizza.Description</td>
+    <td>@pizza.Vegetarian</td>
+    <td>@pizza.Vegan</td>
+    <td>@pizza.Price</td>
+   </tr>
+  }
+ </tbody>
+</table>
+}

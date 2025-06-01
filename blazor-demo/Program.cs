@@ -1,5 +1,6 @@
 using blazor_demo.Components;
 using Blazored.LocalStorage;
+using BlazingPizza.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<TodoService>();
+builder.Services.AddScoped<PizzaService>();
 builder.Services.AddLogging();
 
 builder.Services.AddBlazoredLocalStorage();
