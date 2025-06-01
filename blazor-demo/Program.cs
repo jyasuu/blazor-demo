@@ -9,7 +9,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<TodoService>();
-builder.Services.AddScoped<PizzaService>();
+builder.Services.AddSingleton<PizzaService>();
 builder.Services.AddLogging();
 
 builder.Services.AddBlazoredLocalStorage();
