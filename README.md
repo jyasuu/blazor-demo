@@ -9,5 +9,6 @@ dotnet sln add blazor-wasm-demo
 dotnet run -p blazor-demo
 dotnet watch -p blazor-demo
 
+dotnet new razorcomponent -n Todo -o blazor-demo/Components/Pages
 
 ```
