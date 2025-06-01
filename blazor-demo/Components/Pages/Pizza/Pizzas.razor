@@ -2,6 +2,8 @@
 @rendermode InteractiveServer
 @using BlazingPizza.Data
 @inject PizzaService PizzaSvc
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
 
 <style>
     @@import url('font/quicksand.css');
@@ -11,11 +13,12 @@
 
 @code {
     private List<Pizza> todaysPizzas;
-        
 
     protected override async Task OnInitializedAsync()
     {
         todaysPizzas = PizzaSvc.GetPizzas();
+        var specials = PizzaSvc.GetSpecials();
+        
     }
 }
 

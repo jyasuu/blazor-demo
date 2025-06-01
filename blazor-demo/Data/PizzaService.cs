@@ -10,11 +10,12 @@ using Blazored.LocalStorage;
 
 public class PizzaService
 {
+    private readonly PizzaStoreContext _db;
     
 
-    public PizzaService()
+    public PizzaService(PizzaStoreContext db)
     {
-
+        _db = db;
     }
 
     public List<Pizza> GetPizzas()
@@ -32,6 +33,11 @@ public class PizzaService
             return pizzas;
         }
         
+    }
+
+    public async Task<List<PizzaSpecial>> GetSpecials()
+    {
+        return _db.Specials.ToList();
     }
 
 }
